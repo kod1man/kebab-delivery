@@ -5,7 +5,7 @@ import CourierAddForm from '../ui/CourierAddForm';
 import Container from 'react-bootstrap/esm/Container';
 import Button from 'react-bootstrap/esm/Button';
 
-export default function FlowersPage() {
+export default function CourierPage() {
   const [order, setOrder] = useState([]);
   const [input, setInput] = useState({
     title: '',

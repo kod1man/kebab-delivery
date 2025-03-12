@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/esm/Button';
 import Form from 'react-bootstrap/Form';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function CourierAddForm({ input, changeHandler, submitHandler }) {
   return (
@@ -18,7 +19,7 @@ export default function CourierAddForm({ input, changeHandler, submitHandler }) 
         name="city"
         onChange={changeHandler}
         value={input.city}
-        placeholder="Desc"
+        placeholder="City"
       />
       <br />
       <Form.Control
@@ -34,7 +35,7 @@ export default function CourierAddForm({ input, changeHandler, submitHandler }) 
         name="price"
         onChange={changeHandler}
         value={input.price}
-        placeholder="URL"
+        placeholder="Price"
       />
       <br />
       <Form.Control
@@ -42,7 +43,7 @@ export default function CourierAddForm({ input, changeHandler, submitHandler }) 
         name="discount"
         onChange={changeHandler}
         value={input.discount}
-        placeholder="URL"
+        placeholder="Discount(%)"
       />
       <br />
       <Button variant="success" type="submit" style={{ marginTop: '10px' }}>
