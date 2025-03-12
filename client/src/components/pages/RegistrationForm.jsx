@@ -1,33 +1,41 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './RegistrationForm.css';
+import axiosInstance from '../../api/axiosInstance';
 
-export default function RegistrationForm() {
+export default function RegistrationForm({ setUser }) {
   const [role, setRole] = useState('customer');
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [city, setCity] = useState('');
-  const [phone, setPhone] = useState('');
-  const navigate = useNavigate(); 
-
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+  const signupHandle = (e) => {
     e.preventDefault();
-    const userData = {
-      role,
-      name,
-      email,
-      password,
-      phone,
-      ...(role === 'courier' && { city }),
-    };
-    console.log('Registration Data:', userData);
-    navigate('/login');
+    const formData = Object.fromEntries(new FormData(e.target));
+    formData.role = role;
+    if (
+      !formData.email ||
+      !formData.password ||
+      !formData.name ||
+      !formData.phone ||
+      !formData.city ||
+      !formData.role
+    ) {
+      return alert('Missing required fields');
+    }
+    axiosInstance
+      .post('auth/signup', formData)
+      .then((res) => {
+        setUser({ status: 'logged', data: res.data.user });
+      })
+      .catch((error) => {
+        error.status === 400 ? alert('Такой пользователь уже существует') : true;
+        error.status === 500 ? alert('Ошибка сервера') : true;
+      });
   };
+
+  console.log(role);
 
   return (
     <div className="registration-container">
-      <form onSubmit={handleSubmit} className="registration-form">
+      <form onSubmit={signupHandle} className="registration-form">
         <h2>Регистрация</h2>
         <div className="role-selector">
           <label
@@ -45,61 +53,34 @@ export default function RegistrationForm() {
         </div>
         <div className="form-group">
           <label htmlFor="name">Имя:</label>
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
+          <input type="text" id="name" name="name" required />
         </div>
 
         <div className="form-group">
           <label htmlFor="email">Почта:</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+          <input type="email" id="email" name="email" required />
         </div>
 
         <div className="form-group">
           <label htmlFor="password">Пароль:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <input type="password" id="password" name="password" required />
         </div>
 
         <div className="form-group">
           <label htmlFor="phone">Номер телефона:</label>
           <input
-            type="tel"
+            type="text"
             id="phone"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
+            name="phone"
             required
             placeholder="+7 (XXX) XXX-XX-XX"
           />
         </div>
 
-        {role === 'courier' && (
-          <div className="form-group">
-            <label htmlFor="city">Город:</label>
-            <input
-              type="text"
-              id="city"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-              required
-            />
-          </div>
-        )}
+        <div className="form-group">
+          <label htmlFor="city">Город:</label>
+          <input type="text" id="city" name="city" required />
+        </div>
 
         <button type="submit" className="submit-button">
           Зарегистрироваться
