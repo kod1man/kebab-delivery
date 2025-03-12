@@ -1,12 +1,3 @@
-.login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #2221211e, #3a475c65);
-    padding: 70px;
-  }
-  
   .login-form {
     background: rgba(255, 255, 255, 0.1);
     padding: 1.5rem;
