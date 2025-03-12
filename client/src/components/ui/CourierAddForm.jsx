@@ -15,9 +15,9 @@ export default function CourierAddForm({ input, changeHandler, submitHandler }) 
       <br />
       <Form.Control
         type="text"
-        name="desc"
+        name="city"
         onChange={changeHandler}
-        value={input.desc}
+        value={input.city}
         placeholder="Desc"
       />
       <br />
@@ -28,6 +28,23 @@ export default function CourierAddForm({ input, changeHandler, submitHandler }) 
         value={input.url}
         placeholder="URL"
       />
+      <br />
+      <Form.Control
+        type="text"
+        name="price"
+        onChange={changeHandler}
+        value={input.price}
+        placeholder="URL"
+      />
+      <br />
+      <Form.Control
+        type="text"
+        name="discount"
+        onChange={changeHandler}
+        value={input.discount}
+        placeholder="URL"
+      />
+      <br />
       <Button variant="success" type="submit" style={{ marginTop: '10px' }}>
         Add
       </Button>

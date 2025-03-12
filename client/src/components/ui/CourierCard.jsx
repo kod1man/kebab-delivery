@@ -7,13 +7,14 @@ export default function CourierCard({ order, deleteHandlerKey }) {
   return (
     <Col xs={6}>
       <Card>
-        <Card.Img variant="top" src={flower.url} />
+        <Card.Img variant="top" src={order.url} />
         <Card.Body>
-          <Card.Title>{flower.title}</Card.Title>
-          <Card.Text>{flower.desc}</Card.Text>
-          <Card.Text>{flower.desc}</Card.Text>
-          <Card.Text>{flower.desc}</Card.Text>
-          <Button variant="success" onClick={() => deleteHandlerKey(flower.id)}>
+          <Card.Title>{order.title}</Card.Title>
+          <Card.Text>{order.city}</Card.Text>
+          <Card.Text>{order.url}</Card.Text>
+          <Card.Text>{order.price}</Card.Text>
+          <Card.Text>{order.discount}</Card.Text>
+          <Button variant="success" onClick={() => deleteHandlerKey(order.id)}>
             Delete
           </Button>
         </Card.Body>

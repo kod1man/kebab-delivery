@@ -7,35 +7,36 @@ import Button from 'react-bootstrap/esm/Button';
 
 export default function FlowersPage() {
   const [order, setOrder] = useState([]);
-  const [input, setInput] = useState({ title: '', desc: '', url: '' });
-  const [show, setShow] = useState(false);
+  const [input, setInput] = useState({
+    title: '',
+    city: '',
+    url: '',
+    price: '',
+    discount: '',
+  });
 
   const deleteHandler = (id) => {
-    setCurrentFlowers((prev) => prev.filter((flower) => flower.id !== id));
+    setOrder((prev) => prev.filter((order) => order.id !== id));
   };
 
   const changeHandler = (event) => {
-    // console.log("event.target.name", event.target.name);
-    // console.log("event.target.value", event.target.value);
     setInput((prev) => ({ ...prev, [event.target.name]: event.target.value }));
   };
 
   const submitHandler = (event) => {
     event.preventDefault();
-    setCurrentFlowers((prev) => [input, ...prev]);
-    setInput({ title: '', desc: '', url: '' });
+    setOrder((prev) => [input, ...prev]);
+    setInput({ title: '', city: '', url: '', price: '', discount: '' });
   };
 
   return (
     <Container>
       <Row style={{ marginTop: '10px' }}>
-        (
         <CourierAddForm
           input={input}
           changeHandler={changeHandler}
           submitHandler={submitHandler}
         />
-        )
       </Row>
       <Row style={{ marginTop: '10px' }}>
         {order.map((el) => (
