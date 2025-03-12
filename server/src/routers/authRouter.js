@@ -14,7 +14,14 @@ authRouter.post('/signup', async (req, res) => {
   try {
     const [user, created] = await User.findOrCreate({
       where: { email },
-      defaults: { name, password: await bcrypt.hash(password, 10) },
+      defaults: {
+        name,
+        phone,
+        city,
+        email,
+        role,
+        password: await bcrypt.hash(password, 10),
+      },
     });
 
     if (!created) {
