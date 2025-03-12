@@ -1,7 +1,6 @@
 import React from 'react';
 import './MainPage.css';
 
-
 export default function MainPage() {
   return (
     <div id="wrapper">
@@ -15,6 +14,8 @@ export default function MainPage() {
             Мы предлагаем уникальное решение для тех, кто не хочет, чтобы еда пропадала зря! Если заказчик не принял доставку, вы можете разместить непринятый заказ в нашем приложении, а люди рядом смогут его выкупить со скидкой.
           </p>
           <div className="buttons">
+            <button className="btn-register">Регистрация</button>
+            <button className="btn-login">Вход</button>
           </div>
         </section>
 
