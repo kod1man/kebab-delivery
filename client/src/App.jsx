@@ -6,20 +6,23 @@ import CourierPage from './components/pages/CourierPage';
 import OrdersPage from './components/pages/OrdersPage';
 import LoginPage from './components/pages/LoginPage';
 import axiosInstance, { setAccessToken } from './api/axiosInstance';
+import Loader from './components/shared/Loader';
 import axios from 'axios';
 
 function App() {
   const [user, setUser] = useState({ status: 'logging', data: null });
-  const [order, setOrder] = useState([]);
+  const [orders, setOrder] = useState([]);
 
   useEffect(() => {
-    axios
-      .get('api/order/info')
-      .then((res) => setOrder(res.data))
-      .catch(console.log);
+    const data = async () => {
+      const response = await fetch('/api/orders/info');
+      const responseData = await response.json();
+      setOrder(responseData);
+    };
+    data();
   }, []);
 
-  console.log(order);
+  console.log(orders);
 
   useEffect(() => {
     axiosInstance('/tokens/refresh')
@@ -34,20 +37,23 @@ function App() {
         setAccessToken('');
       });
   }, []);
+  console.log(user);
 
   return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<MainPage user={user} />} />
-        <Route path="/reg" element={<RegisterPage setUser={setUser} />} />
-        <Route path="/orders" element={<OrdersPage order={order} user={user} />} />
+    <Loader isLoading={user.status === 'logging'}>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<MainPage user={user} />} />
+          <Route path="/reg" element={<RegisterPage setUser={setUser} />} />
+          <Route path="/orders" element={<OrdersPage order={order} user={user} />} />
         <Route
-          path="/courier"
-          element={<CourierPage setOrder={setOrder} order={order} />}
-        />
-        <Route path="/login" element={<LoginPage setUser={setUser} />} />
-      </Routes>
-    </div>
+            path="/courier"
+            element={<CourierPage orders={orders} courierId={user.data?.id} />}
+          />
+          <Route path="/login" element={<LoginPage setUser={setUser} />} />
+        </Routes>
+      </div>
+    </Loader>
   );
 }
 

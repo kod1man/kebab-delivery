@@ -2,7 +2,10 @@ import React from 'react';
 import Button from 'react-bootstrap/esm/Button';
 import Form from 'react-bootstrap/Form';
 
-export default function CourierAddForm({ input, changeHandler, submitHandler }) {
+export default function CourierAddForm({ setInput, input, submitHandler }) {
+  const handleChange = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+  };
   return (
     <Form onSubmit={submitHandler} className="registration-form">
       <h2> Форма добавления непринятого заказа</h2>
@@ -10,8 +13,8 @@ export default function CourierAddForm({ input, changeHandler, submitHandler }) 
         <Form.Control
           type="text"
           name="title"
-          onChange={changeHandler}
           value={input.title}
+          onChange={handleChange}
           placeholder="Название"
           className="form-input"
         />
@@ -20,8 +23,8 @@ export default function CourierAddForm({ input, changeHandler, submitHandler }) 
         <Form.Control
           type="text"
           name="city"
-          onChange={changeHandler}
           value={input.city}
+          onChange={handleChange}
           placeholder="Город"
           className="form-input"
         />
@@ -29,10 +32,10 @@ export default function CourierAddForm({ input, changeHandler, submitHandler }) 
       <Form.Group className="form-group">
         <Form.Control
           type="text"
-          name="url"
-          onChange={changeHandler}
-          value={input.url}
+          name="img"
           placeholder="URL"
+          value={input.img}
+          onChange={handleChange}
           className="form-input"
         />
       </Form.Group>
@@ -40,8 +43,8 @@ export default function CourierAddForm({ input, changeHandler, submitHandler }) 
         <Form.Control
           type="text"
           name="price"
-          onChange={changeHandler}
           value={input.price}
+          onChange={handleChange}
           placeholder="Цена"
           className="form-input"
         />
@@ -50,8 +53,8 @@ export default function CourierAddForm({ input, changeHandler, submitHandler }) 
         <Form.Control
           type="text"
           name="discountPrice"
-          onChange={changeHandler}
-          value={input.discountPrice}
+          value={input.discoutPrice}
+          onChange={handleChange}
           placeholder="Скидка(%)"
           className="form-input"
         />

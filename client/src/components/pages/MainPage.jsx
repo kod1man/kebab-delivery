@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './MainPage.css';
+import Loader from '../shared/Loader';
 
 export default function MainPage({ user }) {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ export default function MainPage({ user }) {
           <div className="logo-container">
             <img src="/keb.png" alt="Kebab" className="logo" />
           </div>
-
+          
           <h1>
             <span className="eyebrow" aria-hidden="true">
               Добро пожаловать в{' '}

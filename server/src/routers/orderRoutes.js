@@ -36,4 +36,21 @@ orderRouter.post('/create', async (req, res) => {
   }
 });
 
+orderRouter.delete('/delete/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const order = await Order.findByPk(id);
+
+    if (!order) {
+      return res.status(404).json({ error: 'Заказ не найден' });
+    }
+
+    await order.destroy();
+    res.status(200).json({ message: 'Заказ успешно удален' });
+  } catch (error) {
+    console.error('Ошибка при удалении заказа:', error);
+    res.status(500).json({ error: 'Ошибка при удалении заказа' });
+  }
+});
+
 module.exports = orderRouter;

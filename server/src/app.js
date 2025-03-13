@@ -15,6 +15,6 @@ app.use(morgan('dev'));
 
 app.use('/api/auth', authRouter);
 app.use('/api/tokens', tokenRouter);
-app.use('/api/order', orderRouter);
+app.use('/api/orders', orderRouter);
 
 module.exports = app;
