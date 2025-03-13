@@ -9,6 +9,7 @@ import Loader from './components/shared/Loader';
 
 function App() {
   const [user, setUser] = useState({ status: 'logging', data: null });
+  const [order, setOrder] = useState([]);
 
   useEffect(() => {
     axiosInstance('/tokens/refresh')
