@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LoginPage.css';
+import axiosInstance, { setAccessToken } from '../../api/axiosInstance';
 
-export default function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+export default function LoginPage({ setUser }) {
   const navigate = useNavigate();
-
   const handleLogin = (e) => {
     e.preventDefault();
-    if (email && password) {
-      console.log('Пароль успешный!');
-      navigate('/courier'); 
-    } else {
-      console.log('Пожалуйста,введите верные данные');
+    const formData = Object.fromEntries(new FormData(e.target));
+    if (!formData.email || !formData.password) {
+      return alert('Missing required fields');
     }
+    axiosInstance.post('/auth/signin', formData).then(({ data }) => {
+      setUser({ status: 'logged', data: data.user });
+      setAccessToken(data.accessToken);
+    });
   };
 
   return (
@@ -23,24 +23,13 @@ export default function LoginPage() {
         <h2>Вход в аккаунт</h2>
         <div className="form-group">
           <label htmlFor="email">Почта:</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+
+          <input type="email" id="email" name="email" required />
         </div>
 
         <div className="form-group">
           <label htmlFor="password">Пароль:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <input type="password" id="password" name="password" required />
         </div>
 
         <button type="submit" className="submit-button">
