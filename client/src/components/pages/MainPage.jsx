@@ -5,8 +5,7 @@ import Navbar from '../ui/NavBar';
 
 export default function MainPage({ user, onLogout }) {
   const [text, setText] = useState('');
-  const fullText = "Добро пожаловать в Кебаб-Маркет";
-import Loader from '../shared/Loader';
+  const fullText = 'Добро пожаловать в Кебаб-Маркет';
 
   const navigate = useNavigate();
 
@@ -27,7 +26,7 @@ import Loader from '../shared/Loader';
       } else {
         clearInterval(interval);
       }
-    }, 100); 
+    }, 100);
     return () => clearInterval(interval);
   }, []);
 
@@ -45,7 +44,8 @@ import Loader from '../shared/Loader';
             </span>
           </h1>
           <p className="fade-in delay-2">
-            Мы предлагаем уникальное решение для тех, кто не хочет, чтобы еда пропадала зря!
+            Мы предлагаем уникальное решение для тех, кто не хочет, чтобы еда пропадала
+            зря!
           </p>
           {user && user.data && user.status === 'logged' ? (
             user.data.role === 'courier' ? (
@@ -67,17 +67,16 @@ import Loader from '../shared/Loader';
         <section className="bars container">
           <div className="bars-text">
             <div className="flow-content">
-              <p>
-              </p>
+              <p></p>
             </div>
           </div>
           <div className="bars-cont">
-  <div className="kebab-stack">
-    <img src="../../../public/pom.png" alt="Kebab 3" className="kebabp" />
-     <img src="../../../public/luc.png" alt="Kebab 2" className="kebabl" />
-    <img src="../../../public/sh.png" alt="Kebab 1" className="kebabs" />
-  </div>
-</div>
+            <div className="kebab-stack">
+              <img src="../../../public/pom.png" alt="Kebab 3" className="kebabp" />
+              <img src="../../../public/luc.png" alt="Kebab 2" className="kebabl" />
+              <img src="../../../public/sh.png" alt="Kebab 1" className="kebabs" />
+            </div>
+          </div>
         </section>
         <section className="spacer"></section>
       </section>
