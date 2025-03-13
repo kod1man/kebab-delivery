@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './MainPage.css';
+import Navbar from '../ui/NavBar';
+
+export default function MainPage({ user, onLogout }) {
+  const [text, setText] = useState('');
+  const fullText = "Добро пожаловать в Кебаб-Маркет";
 import Loader from '../shared/Loader';
 
-export default function MainPage({ user }) {
   const navigate = useNavigate();
 
   const handleRegisterClick = () => {
@@ -14,33 +18,43 @@ export default function MainPage({ user }) {
     navigate('/login');
   };
 
+  useEffect(() => {
+    let currentIndex = 0;
+    const interval = setInterval(() => {
+      if (currentIndex <= fullText.length) {
+        setText(fullText.slice(0, currentIndex));
+        currentIndex++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 100); 
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div id="wrapper">
+    <div id="wrapper" className="parallax">
+      <Navbar user={user} onLogout={onLogout} />
       <section id="content">
         <section className="title container flow--lg">
-          <div className="logo-container">
+          <div className="logo-container fade-in">
             <img src="/keb.png" alt="Kebab" className="logo" />
           </div>
-          
-          <h1>
+          <h1 className="fade-in delay-1">
             <span className="eyebrow" aria-hidden="true">
-              Добро пожаловать в{' '}
+              <span className="typed-text">{text}</span>
             </span>
-            Кебаб-Маркет
           </h1>
-          <p>
-            Мы предлагаем уникальное решение для тех, кто не хочет, чтобы еда пропадала
-            зря! Если заказчик не принял доставку, вы можете разместить непринятый заказ в
-            нашем приложении, а люди рядом смогут его выкупить со скидкой.
+          <p className="fade-in delay-2">
+            Мы предлагаем уникальное решение для тех, кто не хочет, чтобы еда пропадала зря!
           </p>
           {user && user.data && user.status === 'logged' ? (
             user.data.role === 'courier' ? (
-              <div>личный кабинет курьера</div>
+              <div></div>
             ) : user.data.role === 'customer' ? (
-              <div>личный кабинет заказчика</div>
+              <div></div>
             ) : null
           ) : (
-            <div className="buttons">
+            <div className="buttons fade-in delay-3">
               <button className="btn-register" onClick={handleRegisterClick}>
                 Регистрация
               </button>
@@ -52,17 +66,19 @@ export default function MainPage({ user }) {
         </section>
         <section className="bars container">
           <div className="bars-text">
-            <div className="flow content">
-              <h2>Почему мы?</h2>
+            <div className="flow-content">
               <p>
-                Мы помогаем сократить количество пищевых отходов и даем возможность людям
-                наслаждаться вкусной едой по доступной цене. Присоединяйтесь к нашему
-                сообществу!
               </p>
             </div>
           </div>
+          <div className="bars-cont">
+  <div className="kebab-stack">
+    <img src="../../../public/pom.png" alt="Kebab 3" className="kebabp" />
+     <img src="../../../public/luc.png" alt="Kebab 2" className="kebabl" />
+    <img src="../../../public/sh.png" alt="Kebab 1" className="kebabs" />
+  </div>
+</div>
         </section>
-
         <section className="spacer"></section>
       </section>
     </div>
