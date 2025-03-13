@@ -1,47 +1,64 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CourierCard from '../ui/CourierCard';
 import Row from 'react-bootstrap/esm/Row';
+import axios from 'axios';
 import CourierAddForm from '../ui/CourierAddForm';
 import Container from 'react-bootstrap/esm/Container';
 import Button from 'react-bootstrap/esm/Button';
+import axiosInstance from '../../api/axiosInstance';
 
-export default function FlowersPage() {
-  const [order, setOrder] = useState([]);
+export default function CourierPage({ orders, courierId }) {
   const [input, setInput] = useState({
     title: '',
     city: '',
-    url: '',
+    img: '',
     price: '',
-    discount: '',
+    discountPrice: '',
   });
 
-  const deleteHandler = (id) => {
-    setOrder((prev) => prev.filter((order) => order.id !== id));
-  };
+  console.log(input);
 
-  const changeHandler = (event) => {
-    setInput((prev) => ({ ...prev, [event.target.name]: event.target.value }));
-  };
+  const [filterOrders, setFilterOrders] = useState([]);
 
-  const submitHandler = (event) => {
+  useEffect(() => {
+    if (orders.length > 0 && courierId) {
+      setFilterOrders(orders.filter((el) => el.courierId === courierId));
+    }
+  }, [orders, courierId]);
+
+  const submitHandler = async (event) => {
     event.preventDefault();
-    setOrder((prev) => [input, ...prev]);
-    setInput({ title: '', city: '', url: '', price: '', discount: '' });
+    try {
+      const response = await axiosInstance.post('/orders/create', input);
+      setFilterOrders((prev) => [...prev, response.data]);
+      setInput({ title: '', city: '', img: '', price: '', discountPrice: '' });
+    } catch (error) {
+      console.log(error, 'Ошибка в создании заказа');
+    }
+  };
+
+  const deleteHandler = async (orderId) => {
+    try {
+      await axiosInstance.delete(`/orders/delete/${orderId}`);
+      setFilterOrders((prev) => prev.filter((order) => order.id !== orderId));
+    } catch (error) {
+      console.log(error, 'Ошибка при удалении заказа');
+    }
   };
 
   return (
-    <Container>
+    <Container style={{ marginTop: '20px' }}>
       <Row style={{ marginTop: '10px' }}>
-        <CourierAddForm
-          input={input}
-          changeHandler={changeHandler}
-          submitHandler={submitHandler}
-        />
+        <CourierAddForm setInput={setInput} input={input} submitHandler={submitHandler} />
       </Row>
       <Row style={{ marginTop: '10px' }}>
-        {order.map((el) => (
-          <CourierCard key={el.title} order={el} deleteHandlerKey={deleteHandler} />
-        ))}
+        {filterOrders.length > 0 ? (
+          filterOrders.map((el) => (
+            <CourierCard key={el.id} order={el} onDelete={deleteHandler} />
+          ))
+        ) : (
+          <p>Заказы еще не добавлены, пожалуйста, добавьте заказ</p>
+        )}
       </Row>
     </Container>
   );

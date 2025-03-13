@@ -6,6 +6,7 @@ import Navbar from '../ui/NavBar';
 export default function MainPage({ user, onLogout }) {
   const [text, setText] = useState('');
   const fullText = "Добро пожаловать в Кебаб-Маркет";
+import Loader from '../shared/Loader';
 
   const navigate = useNavigate();
 
