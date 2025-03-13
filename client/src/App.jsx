@@ -5,6 +5,7 @@ import RegisterPage from './components/pages/RegistrationForm';
 import CourierPage from './components/pages/CourierPage';
 import LoginPage from './components/pages/LoginPage';
 import axiosInstance, { setAccessToken } from './api/axiosInstance';
+import Loader from './components/shared/Loader';
 
 function App() {
   const [user, setUser] = useState({ status: 'logging', data: null });
@@ -23,19 +24,19 @@ function App() {
         setAccessToken('');
       });
   }, []);
+  console.log(user);
 
   return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<MainPage user={user} />} />
-        <Route path="/reg" element={<RegisterPage setUser={setUser} />} />
-        <Route
-          path="/courier"
-          element={<CourierPage setOrder={setOrder} order={order} />}
-        />
-        <Route path="/login" element={<LoginPage setUser={setUser} />} />
-      </Routes>
-    </div>
+    <Loader isLoading={user.status === 'logging'}>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<MainPage user={user} />} />
+          <Route path="/reg" element={<RegisterPage setUser={setUser} />} />
+          <Route path="/courier" element={<CourierPage />} />
+          <Route path="/login" element={<LoginPage setUser={setUser} />} />
+        </Routes>
+      </div>
+    </Loader>
   );
 }
 
