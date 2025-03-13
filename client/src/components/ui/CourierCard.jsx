@@ -12,8 +12,12 @@ export default function CourierCard({ order, deleteHandlerKey }) {
           <Card.Title>Название:{order.title}</Card.Title>
           <Card.Text>Город: {order.city}</Card.Text>
           <Card.Text>Цена: {order.price}</Card.Text>
-          <Card.Text>Скидка: {order.discount} %</Card.Text>
-          <Button variant="success" onClick={() => deleteHandlerKey(order.id)}>
+          <Card.Text>Скидка: {order.discountPrice} %</Card.Text>
+          <Button
+            variant="success"
+            className="submit-button"
+            onClick={() => deleteHandlerKey(order.title)}
+          >
             Delete
           </Button>
         </Card.Body>
