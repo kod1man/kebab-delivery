@@ -1,16 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500&display=swap");
-.logo-container {
-  text-align: center;
-  margin-bottom: 2rem; 
-}
-
-.logo {
-  width: 150px; 
-  height: auto;  
-}
 body {
   background-color: #111;
-  font-family: "Open Sans", sans-serif;
   color: white;
   margin: 0;
   padding: 0;
@@ -22,12 +11,53 @@ body {
   align-items: center;
 }
 
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: #ff5722; }
+}
+
+.typed-text {
+  font-family: 'FoglihtenNo06';
+  font-size: 60px;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid #ff5722; 
+  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+.logo-container {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.logo {
+  width: 150px;
+  height: auto;
+}
+
 #wrapper {
   width: 100%;
   overflow: hidden;
 }
 
 #content {
+  font-size: 27px;
   width: 100%;
   padding: 0 0.75rem;
   display: flex;
@@ -40,7 +70,7 @@ body {
   max-width: 1100px;
   margin: 0 auto;
   padding: 0 0.5rem;
-  text-align: center; 
+  text-align: center;
 }
 
 .title {
@@ -58,12 +88,6 @@ h1 {
   margin: 0 auto;
 }
 
-.eyebrow {
-  font-family: "Open Sans", sans-serif;
-  font-size: clamp(12px, 7vw, 43px);
-  font-weight: 400;
-}
-
 .buttons {
   margin-top: 2rem;
 }
@@ -76,7 +100,7 @@ h1 {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  display: inline-block; /* Ensures buttons are centered in the container */
+  display: inline-block; 
 }
 
 .btn-register {
@@ -98,39 +122,136 @@ h1 {
   background-color: #ff5722;
   color: white;
 }
+.btn-orders {
+  padding: 0.75rem 1.5rem;
+  margin: 0.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+  background-color: #ff5722; 
+  color: white;
+}
+
 
 .bars {
   display: flex;
   flex-wrap: wrap;
   column-gap: 4rem;
   margin-top: 10vh;
-  justify-content: center; /* Center the bars section */
+  justify-content: center;
 }
 
+.flow-content{
+  position: absolute;
+  left: 80px;
+  font-size: 30px;
+}
 .bars-text {
   flex: 1 1 300px;
-  text-align: center; /* Center the text inside bars-text */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+   margin-bottom: 1rem;
 }
+
+.bars-text h2 {
+  position: absolute;
+  left: -10px;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.bars-text p {
+  position: absolute;
+  left: -10px;
+  top: 3px;
+  font-size: 1.2rem;
+  max-width: 600px;
+  line-height: 1.6;
+  margin: 0 auto;
+}
+
 
 .bars-cont {
-  flex: 1 1 500px;
   display: flex;
-  height: 60vh;
-  align-items: flex-end;
-  justify-content: center; /* Ensure bars are centered */
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
 }
 
-.bar {
-  border-radius: 10px;
-  margin: 2vw;
-  text-align: center;
-  flex: 1 0 auto;
-  font-size: clamp(16px, 3vw, 36px);
-  background-color: #ff5722;
-  padding: 1rem;
+
+.kebab-stack {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.spacer {
-  min-height: 50vh;
+.kebab {
+  width: 400px;
+  opacity: 0;
+  position: absolute;
+  animation: fadeIn 1s forwards;
+  z-index: 1;
 }
 
+.kebabs {
+  position: absolute;
+  top: -500px; 
+  width: 750px;
+  height: auto;
+  left: -400px;
+  z-index: 3; 
+  animation-delay: 0.5s;
+}
+
+.kebabl {
+  position: absolute;
+  top: -800px; 
+  width: 700px;
+  height: auto;
+  left: -400px;
+  z-index: 2; 
+  animation-delay: 1s;
+}
+
+.kebabp {
+  position: absolute;
+  top: -900px;
+  left: -400px;
+  width: 700px;
+  height: auto;
+  z-index: 1; 
+  animation-delay: 1.5s;
+}
+
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.kebabl, .kebabp {
+  animation: slideUpDown 8s ease-in-out infinite alternate;
+}
+
+@keyframes slideUpDown {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-30px); 
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

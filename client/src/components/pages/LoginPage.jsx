@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LoginPage.css';
+import Navbar from '../ui/NavBar';
 import axiosInstance, { setAccessToken } from '../../api/axiosInstance';
 
 export default function LoginPage({ setUser }) {
   const navigate = useNavigate();
+
   const handleLogin = (e) => {
     e.preventDefault();
     const formData = Object.fromEntries(new FormData(e.target));
@@ -19,11 +21,11 @@ export default function LoginPage({ setUser }) {
 
   return (
     <div className="login-container">
+      <Navbar user={{ status: 'guest', data: null }} onLogout={() => {}} />
       <form onSubmit={handleLogin} className="login-form">
         <h2>Вход в аккаунт</h2>
         <div className="form-group">
           <label htmlFor="email">Почта:</label>
-
           <input type="email" id="email" name="email" required />
         </div>
 
@@ -32,7 +34,7 @@ export default function LoginPage({ setUser }) {
           <input type="password" id="password" name="password" required />
         </div>
 
-        <button type="submit" className="submit-button">
+        <button type="submit" className="submit-button" onClick={() => navigate('/')}>
           Войти
         </button>
       </form>
