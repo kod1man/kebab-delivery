@@ -52,7 +52,7 @@ module.exports = {
         img: 'https://example.com/burger.jpg',
         city: 'Москва',
         price: '500',
-        discountPrice: '250',
+        discountPrice: '10',
         isAvailable: true,
         courierId: 1, // Связан с курьером с id=1
         customerId: null, // Пока не выкуплен
@@ -64,7 +64,7 @@ module.exports = {
         img: 'https://example.com/pizza.jpg',
         city: 'Санкт-Петербург',
         price: '800',
-        discountPrice: '400',
+        discountPrice: '15',
         isAvailable: true,
         courierId: 2, // Связан с курьером с id=2
         customerId: null, // Пока не выкуплен
@@ -76,7 +76,7 @@ module.exports = {
         img: 'https://example.com/sushi.jpg',
         city: 'Москва',
         price: '700',
-        discountPrice: '350',
+        discountPrice: '5',
         isAvailable: false, // Уже выкуплен
         courierId: 1, // Связан с курьером с id=1
         customerId: 3, // Выкуплен заказчиком с id=3

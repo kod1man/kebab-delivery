@@ -15,12 +15,6 @@ export default function CourierPage({ setOrder, order }) {
     discountPrice: '',
   });
 
-  useEffect(() => {
-    axios('/courier')
-      .then((res) => setOrder(res.data))
-      .catch(console.log);
-  });
-
   const deleteHandler = (title) => {
     setOrder((prev) => prev.filter((order) => order.title !== title));
   };
