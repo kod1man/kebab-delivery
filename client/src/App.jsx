@@ -8,6 +8,7 @@ import LoginPage from './components/pages/LoginPage';
 import CustomerPage from './components/pages/CustomerPage';
 import axiosInstance, { setAccessToken } from './api/axiosInstance';
 import Loader from './components/shared/Loader';
+import ProtecteRouter from './components/shared/hocs/ProtecteRouter';
 
 function App() {
   const [user, setUser] = useState({ status: 'logging', data: null });
@@ -50,7 +51,14 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<MainPage user={user} onLogout={handleLogout} />} />
-          <Route path="/reg" element={<RegisterPage setUser={setUser} />} />
+          <Route
+            path="/reg"
+            element={
+              <ProtecteRouter isAllowed={user.status !== 'logged'} redirectTo={'/'}>
+                <RegisterPage setUser={setUser} />
+              </ProtecteRouter>
+            }
+          />
           <Route
             path="/orders"
             element={<OrdersPage order={orders} user={user} setOrder={setOrder} />}
@@ -58,19 +66,32 @@ function App() {
           <Route
             path="/courier"
             element={
-              <CourierPage
-                orders={orders}
-                courierId={user.data?.id}
-                user={user}
-                onLogout={handleLogout}
-              />
+              <ProtecteRouter isAllowed={user.status === 'logged'} redirectTo={'/'}>
+                <CourierPage
+                  orders={orders}
+                  courierId={user.data?.id}
+                  user={user}
+                  onLogout={handleLogout}
+                />
+              </ProtecteRouter>
             }
           />
           <Route
             path="/customer"
-            element={<CustomerPage user={user} onLogout={handleLogout} orders={orders} />}
+            element={
+              <ProtecteRouter isAllowed={user.status === 'logged'} redirectTo={'/'}>
+                <CustomerPage user={user} onLogout={handleLogout} orders={orders} />
+              </ProtecteRouter>
+            }
           />
-          <Route path="/login" element={<LoginPage setUser={setUser} />} />
+          <Route
+            path="/login"
+            element={
+              <ProtecteRouter isAllowed={user.status !== 'logged'} redirectTo={'/'}>
+                <LoginPage setUser={setUser} />
+              </ProtecteRouter>
+            }
+          />
         </Routes>
       </div>
     </Loader>
