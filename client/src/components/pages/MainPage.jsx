@@ -5,8 +5,7 @@ import Navbar from '../ui/NavBar';
 
 export default function MainPage({ user, onLogout }) {
   const [text, setText] = useState('');
-  const fullText = "Добро пожаловать в Кебаб-Маркет";
-
+  const fullText = 'Добро пожаловать в Кебаб-Маркет';
 
   const navigate = useNavigate();
 
@@ -66,11 +65,11 @@ export default function MainPage({ user, onLogout }) {
               <button className="btn-login" onClick={handleLoginClick}>
                 Вход
               </button>
-              <button className="btn-orders" onClick={handleOrdersClick}>
-    Заказы
-  </button>
             </div>
           )}
+          <button className="btn-orders" onClick={handleOrdersClick}>
+            Заказы
+          </button>
         </section>
         <section className="bars container">
           <div className="bars-text">

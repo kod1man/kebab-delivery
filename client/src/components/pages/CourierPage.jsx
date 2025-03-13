@@ -46,34 +46,38 @@ export default function CourierPage({ orders, courierId, onLogout }) {
     }
   };
 
-  const handleLogoutClick = () => {
-    onLogout();
+  const handleBackClick = () => {
     navigate('/');
   };
 
   return (
-    <Container style={{ marginTop: '20px' }}>
-      <Row className="mb-3">
-        <Button
-          variant="danger"
-          onClick={handleLogoutClick}
-          className="logout-button"
-        >
-          Выход
+    <>
+      <div className='button-center'>
+        <Button variant="danger" onClick={handleBackClick} className="logout-button">
+          вернуться назад
         </Button>
-      </Row>
-      <Row style={{ marginTop: '10px' }}>
-        <CourierAddForm setInput={setInput} input={input} submitHandler={submitHandler} />
-      </Row>
-      <Row style={{ marginTop: '10px' }}>
-        {filterOrders.length > 0 ? (
-          filterOrders.map((el) => (
-            <CourierCard key={el.id} order={el} onDelete={deleteHandler} />
-          ))
-        ) : (
-          <p className="no-orders-message">Заказы еще не добавлены, пожалуйста, добавьте заказ</p>
-        )}
-      </Row>
-    </Container>
+      </div>
+      <Container style={{ marginTop: '20px' }}>
+        <Row className="mb-3"></Row>
+        <Row style={{ marginTop: '10px' }}>
+          <CourierAddForm
+            setInput={setInput}
+            input={input}
+            submitHandler={submitHandler}
+          />
+        </Row>
+        <Row style={{ marginTop: '10px' }}>
+          {filterOrders.length > 0 ? (
+            filterOrders.map((el) => (
+              <CourierCard key={el.id} order={el} onDelete={deleteHandler} />
+            ))
+          ) : (
+            <p className="no-orders-message">
+              Заказы еще не добавлены, пожалуйста, добавьте заказ
+            </p>
+          )}
+        </Row>
+      </Container>
+    </>
   );
 }

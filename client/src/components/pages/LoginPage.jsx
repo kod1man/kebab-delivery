@@ -34,7 +34,7 @@ export default function LoginPage({ setUser }) {
           <input type="password" id="password" name="password" required />
         </div>
 
-        <button type="submit" className="submit-button">
+        <button type="submit" className="submit-button" onClick={() => navigate('/')}>
           Войти
         </button>
       </form>

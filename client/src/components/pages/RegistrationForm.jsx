@@ -82,7 +82,7 @@ export default function RegistrationForm({ setUser }) {
           <input type="text" id="city" name="city" required />
         </div>
 
-        <button type="submit" className="submit-button">
+        <button type="submit" className="submit-button" onClick={() => navigate('/')}>
           Зарегистрироваться
         </button>
       </form>

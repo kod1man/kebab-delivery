@@ -22,7 +22,7 @@ function App() {
     data();
   }, []);
 
-  console.log(user)
+  console.log(user);
 
   useEffect(() => {
     axiosInstance('/tokens/refresh')
@@ -51,7 +51,10 @@ function App() {
         <Routes>
           <Route path="/" element={<MainPage user={user} onLogout={handleLogout} />} />
           <Route path="/reg" element={<RegisterPage setUser={setUser} />} />
-          <Route path="/orders" element={<OrdersPage order={orders} user={user} setOrder={setOrder} />} />
+          <Route
+            path="/orders"
+            element={<OrdersPage order={orders} user={user} setOrder={setOrder} />}
+          />
           <Route
             path="/courier"
             element={
@@ -65,7 +68,7 @@ function App() {
           />
           <Route
             path="/customer"
-            element={<CustomerPage user={user} onLogout={handleLogout} orders={orders}   />}
+            element={<CustomerPage user={user} onLogout={handleLogout} orders={orders} />}
           />
           <Route path="/login" element={<LoginPage setUser={setUser} />} />
         </Routes>

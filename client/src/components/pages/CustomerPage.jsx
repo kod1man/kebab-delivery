@@ -7,8 +7,7 @@ import Row from 'react-bootstrap/esm/Row';
 export default function CustomerPage({ user, onLogout, orders }) {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    onLogout();
+  const handleBackClick = () => {
     navigate('/');
   };
 
@@ -31,9 +30,9 @@ export default function CustomerPage({ user, onLogout, orders }) {
           <button
             style={{ marginBottom: '10px' }}
             className="btn-logout"
-            onClick={handleLogout}
+            onClick={handleBackClick}
           >
-            Выйти
+            Вернуться на главную страницу
           </button>
         </div>
         <Container style={{ marginTop: '20px' }}>
