@@ -6,7 +6,7 @@ export default function CustomerCard({ order }) {
   return (
     <Col xs={6}>
       <Card style={{ marginBottom: '40px' }}>
-        <Card.Img variant="top" src={order.img} />
+        <Card.Img variant="top" src={'http://localhost:3000/img/' + order.img || ''} />
         <Card.Body>
           <Card.Title>Название:{order.title}</Card.Title>
           <Card.Text>Город: {order.city}</Card.Text>

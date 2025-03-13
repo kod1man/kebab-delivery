@@ -1,6 +1,9 @@
 const orderRouter = require('express').Router();
 const { Order, User } = require('../../db/models');
 const { verifyAccessToken, verifyRefreshToken } = require('../middlewares/verifyTokens');
+const fs = require('fs').promises;
+const sharp = require('sharp');
+const upload = require('../middlewares/multer');
 
 orderRouter.use(verifyRefreshToken);
 
@@ -14,25 +17,29 @@ orderRouter.get('/info', async (req, res) => {
   }
 });
 
-orderRouter.post('/create', async (req, res) => {
+orderRouter.post('/create', upload.single('file'), async (req, res) => {
+  const { id } = res.locals.user;
+  const { title, city, price, discountPrice, img } = req.body;
+  if (!title || !city || !price || !discountPrice) {
+    return res.status(400).json({ error: 'Все поля должны быть заполнены' });
+  }
+  // мультер тут
+  if (!req.file) return res.status(400).json({ message: 'Файл не передан' });
+  const outputBuffer = await sharp(req.file.buffer).webp().toBuffer();
+  const name = `${Date.now()}.webp`;
+  await fs.writeFile(`./public/img/${name}`, outputBuffer);
   try {
-    const { id } = res.locals.user;
-
-    const { title, city, price, discountPrice, img } = req.body;
-    if (!title || !city || !price || !discountPrice || !img) {
-      return res.status(400).json({ error: 'Все поля должны быть заполнены' });
-    }
     const newOrder = await Order.create({
       title,
       city,
       price,
       discountPrice,
-      img,
+      img: name,
       courierId: id,
     });
     res.status(201).json(newOrder);
   } catch (error) {
-    console.log(error, 'Ошибка в создании заказа');
+    res.status(500).json({ error: 'Ошибка в создании заказа' });
   }
 });
 
