@@ -21,7 +21,7 @@ export default function OrderCard({ order, user, onBuy }) {
   return (
     <Col xs={6}>
       <Card>
-        <Card.Img variant="top" src={order.img} />
+        <Card.Img variant="top" src={'http://localhost:3000/img/' + order.img || ''} />
         <Card.Body>
           <Card.Title>Название:{order.title}</Card.Title>
           <Card.Text>Город: {order.city}</Card.Text>

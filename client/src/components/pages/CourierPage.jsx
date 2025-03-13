@@ -26,14 +26,48 @@ export default function CourierPage({ orders, courierId, onLogout }) {
     }
   }, [orders, courierId]);
 
+  // const submitHandler = async (event) => {
+  //   event.preventDefault();
+  //   try {
+  //     const response = await axiosInstance.post('/orders/create', input);
+  //     setFilterOrders((prev) => [...prev, response.data]);
+  //     setInput({ title: '', city: '', img: '', price: '', discountPrice: '' });
+  //   } catch (error) {
+  //     console.log(error, 'Ошибка в создании заказа');
+  //   }
+  // };
+  
+
   const submitHandler = async (event) => {
     event.preventDefault();
     try {
-      const response = await axiosInstance.post('/orders/create', input);
-      setFilterOrders((prev) => [...prev, response.data]);
-      setInput({ title: '', city: '', img: '', price: '', discountPrice: '' });
+      const dataFromForm = event.target;
+      const newDataFromForm = new FormData(dataFromForm);
+      const dataForApi = Object.fromEntries(newDataFromForm);
+      if (
+        !dataForApi.title ||
+        !dataForApi.city ||
+        !dataForApi.file ||
+        !dataForApi.price ||
+        !dataForApi.discountPrice
+      ) {
+        alert('Не все поля заполнены');
+        return;
+      }
+      const data = new FormData();
+      data.append('title', dataForApi.title);
+      data.append('city', dataForApi.city);
+      data.append('file', dataForApi.file);
+      data.append('price', dataForApi.price);
+      data.append('discountPrice', dataForApi.discountPrice);
+      const res = await axiosInstance.post('/orders/create', data);
+      if (res.status === 201) {
+        setFilterOrders((prev) => [...prev, res.data]);
+        setInput({ title: '', city: '', price: '', discountPrice: '', password: '' });
+      }
+      event.target.reset();
     } catch (error) {
-      console.log(error, 'Ошибка в создании заказа');
+      console.log(error);
     }
   };
 
@@ -52,7 +86,7 @@ export default function CourierPage({ orders, courierId, onLogout }) {
 
   return (
     <>
-      <div className='button-center'>
+      <div className="button-center">
         <Button variant="danger" onClick={handleBackClick} className="logout-button">
           вернуться назад
         </Button>
