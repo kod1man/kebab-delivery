@@ -1,0 +1,137 @@
+.logout-button {
+    margin-left: auto;
+    display: block;
+    padding: 0.75rem 1.5rem;
+    background-color: #4d4545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    border-color: #0e1444;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .logout-button:hover {
+    background-color: #973c3c;
+  }
+  
+  .courier-add-form {
+    width: 100%;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+  }
+  
+  .courier-add-form h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    color: #333;
+    text-align: center;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .form-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+  
+  .form-input:focus {
+    border-color: #ff5722;
+    outline: none;
+  }
+  
+  .submit-button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #ff5722;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: #e64a19;
+  }
+  
+  .orders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  
+  .order-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .order-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .order-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .order-card-body {
+    padding: 1.5rem;
+  }
+  
+  .order-card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: #4d3c3c;
+  }
+  
+  .order-card-text {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: #666;
+  }
+  
+  .order-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem;
+  }
+  
+  .order-card-actions button {
+    padding: 0.5rem 1rem;
+    background-color: #ff5722;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .order-card-actions button:hover {
+    background-color: #e64a19;
+  }
+  
+  .no-orders-message {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #666;
+    margin-top: 2rem;
+  }
