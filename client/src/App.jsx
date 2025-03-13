@@ -66,7 +66,10 @@ function App() {
           <Route
             path="/courier"
             element={
-              <ProtecteRouter isAllowed={user.status === 'logged'} redirectTo={'/'}>
+              <ProtecteRouter
+                isAllowed={user.status === 'logged' && user.data.role === 'courier'}
+                redirectTo={'/'}
+              >
                 <CourierPage
                   orders={orders}
                   courierId={user.data?.id}
@@ -79,7 +82,10 @@ function App() {
           <Route
             path="/customer"
             element={
-              <ProtecteRouter isAllowed={user.status === 'logged'} redirectTo={'/'}>
+              <ProtecteRouter
+                isAllowed={user.status === 'logged' && user.data.role === 'customer'}
+                redirectTo={'/'}
+              >
                 <CustomerPage user={user} onLogout={handleLogout} orders={orders} />
               </ProtecteRouter>
             }
