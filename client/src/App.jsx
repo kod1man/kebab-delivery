@@ -5,10 +5,9 @@ import RegisterPage from './components/pages/RegistrationForm';
 import CourierPage from './components/pages/CourierPage';
 import OrdersPage from './components/pages/OrdersPage';
 import LoginPage from './components/pages/LoginPage';
-import CustomerPage from './components/pages/CustomerPage'; 
+import CustomerPage from './components/pages/CustomerPage';
 import axiosInstance, { setAccessToken } from './api/axiosInstance';
 import Loader from './components/shared/Loader';
-import axios from 'axios';
 
 function App() {
   const [user, setUser] = useState({ status: 'logging', data: null });
@@ -23,7 +22,7 @@ function App() {
     data();
   }, []);
 
-  console.log(orders);
+  console.log(user)
 
   useEffect(() => {
     axiosInstance('/tokens/refresh')
@@ -40,8 +39,10 @@ function App() {
   }, []);
 
   const handleLogout = () => {
-    setUser({ status: 'guest', data: null }); 
-    setAccessToken(''); 
+    axiosInstance
+      .get('/auth/logout')
+      .then(() => setUser({ status: 'guest', data: null }));
+    setAccessToken('');
   };
 
   return (
@@ -50,11 +51,21 @@ function App() {
         <Routes>
           <Route path="/" element={<MainPage user={user} onLogout={handleLogout} />} />
           <Route path="/reg" element={<RegisterPage setUser={setUser} />} />
-          <Route path="/orders" element={<OrdersPage order={orders} user={user} />} />
-        <Route
+          <Route path="/orders" element={<OrdersPage order={orders} user={user} setOrder={setOrder} />} />
+          <Route
             path="/courier"
-            element={<CourierPage orders={orders} courierId={user.data?.id} user={user} onLogout={handleLogout} />} />
-        <Route path="/customer" element={<CustomerPage user={user} onLogout={handleLogout} />}
+            element={
+              <CourierPage
+                orders={orders}
+                courierId={user.data?.id}
+                user={user}
+                onLogout={handleLogout}
+              />
+            }
+          />
+          <Route
+            path="/customer"
+            element={<CustomerPage user={user} onLogout={handleLogout} orders={orders}   />}
           />
           <Route path="/login" element={<LoginPage setUser={setUser} />} />
         </Routes>

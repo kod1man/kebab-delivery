@@ -1,7 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LoginPage.css';
-import Navbar from '../ui/NavBar'; 
+import Navbar from '../ui/NavBar';
+import axiosInstance, { setAccessToken } from '../../api/axiosInstance';
 
 export default function LoginPage({ setUser }) {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ export default function LoginPage({ setUser }) {
 
   return (
     <div className="login-container">
-      <Navbar user={{ status: 'guest', data: null }} onLogout={() => {}} /> 
+      <Navbar user={{ status: 'guest', data: null }} onLogout={() => {}} />
       <form onSubmit={handleLogin} className="login-form">
         <h2>Вход в аккаунт</h2>
         <div className="form-group">

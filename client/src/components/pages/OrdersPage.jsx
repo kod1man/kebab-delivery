@@ -6,14 +6,17 @@ import axios from 'axios';
 import Container from 'react-bootstrap/esm/Container';
 import Button from 'react-bootstrap/esm/Button';
 
-export default function OrdersPage({ order, user }) {
-  const [orders, setOrders] = useState(order);
+export default function OrdersPage({ order, user, setOrder }) {
   const filteredOrders = order.filter(
     (el) => el.city === user.data?.city && el.isAvailable === true,
   );
 
   const handleBuy = (orderId) => {
-    setOrders(orders.filter((el) => el.id !== orderId));
+    setOrder((prev) => {
+      return prev.map((el) =>
+        el.id === orderId ? { ...el, customerId: user.data.id, isAvailable: false } : el
+      );
+    });
   };
 
   return (
