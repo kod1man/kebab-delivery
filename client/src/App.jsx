@@ -8,6 +8,7 @@ import axiosInstance, { setAccessToken } from './api/axiosInstance';
 
 function App() {
   const [user, setUser] = useState({ status: 'logging', data: null });
+  const [order, setOrder] = useState([]);
 
   useEffect(() => {
     axiosInstance('/tokens/refresh')
@@ -28,7 +29,10 @@ function App() {
       <Routes>
         <Route path="/" element={<MainPage user={user} />} />
         <Route path="/reg" element={<RegisterPage setUser={setUser} />} />
-        <Route path="/courier" element={<CourierPage />} />
+        <Route
+          path="/courier"
+          element={<CourierPage setOrder={setOrder} order={order} />}
+        />
         <Route path="/login" element={<LoginPage setUser={setUser} />} />
       </Routes>
     </div>
