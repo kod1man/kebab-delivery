@@ -9,7 +9,18 @@ import Loader from './components/shared/Loader';
 
 function App() {
   const [user, setUser] = useState({ status: 'logging', data: null });
-  const [order, setOrder] = useState([]);
+  const [orders, setOrder] = useState([]);
+
+  useEffect(() => {
+    const data = async () => {
+      const response = await fetch('/api/orders/info');
+      const responseData = await response.json();
+      setOrder(responseData);
+    };
+    data();
+  }, []);
+
+  console.log(orders);
 
   useEffect(() => {
     axiosInstance('/tokens/refresh')
@@ -32,7 +43,10 @@ function App() {
         <Routes>
           <Route path="/" element={<MainPage user={user} />} />
           <Route path="/reg" element={<RegisterPage setUser={setUser} />} />
-          <Route path="/courier" element={<CourierPage />} />
+          <Route
+            path="/courier"
+            element={<CourierPage orders={orders} courierId={user.data?.id} />}
+          />
           <Route path="/login" element={<LoginPage setUser={setUser} />} />
         </Routes>
       </div>

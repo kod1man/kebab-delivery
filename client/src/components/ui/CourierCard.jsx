@@ -3,11 +3,11 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/esm/Col';
 
-export default function CourierCard({ order, deleteHandlerKey }) {
+export default function CourierCard({ order, onDelete }) {
   return (
     <Col xs={6}>
       <Card>
-        <Card.Img variant="top" src={order.url} />
+        <Card.Img variant="top" src={order.img} />
         <Card.Body>
           <Card.Title>Название:{order.title}</Card.Title>
           <Card.Text>Город: {order.city}</Card.Text>
@@ -16,7 +16,7 @@ export default function CourierCard({ order, deleteHandlerKey }) {
           <Button
             variant="success"
             className="submit-button"
-            onClick={() => deleteHandlerKey(order.title)}
+            onClick={() => onDelete(order.id)}
           >
             Delete
           </Button>
