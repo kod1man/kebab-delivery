@@ -202,8 +202,8 @@ h1 {
 
 .kebabs {
   position: absolute;
-  top: -180px; 
-  width: 800px;
+  top: -500px; 
+  width: 750px;
   height: auto;
   left: -400px;
   z-index: 3; 
@@ -212,7 +212,7 @@ h1 {
 
 .kebabl {
   position: absolute;
-  top: -400px; 
+  top: -800px; 
   width: 700px;
   height: auto;
   left: -400px;
@@ -222,7 +222,7 @@ h1 {
 
 .kebabp {
   position: absolute;
-  top: -630px;
+  top: -900px;
   left: -400px;
   width: 700px;
   height: auto;
