@@ -3,9 +3,11 @@ import { Routes, Route } from 'react-router-dom';
 import MainPage from './components/pages/MainPage';
 import RegisterPage from './components/pages/RegistrationForm';
 import CourierPage from './components/pages/CourierPage';
+import OrdersPage from './components/pages/OrdersPage';
 import LoginPage from './components/pages/LoginPage';
 import axiosInstance, { setAccessToken } from './api/axiosInstance';
 import Loader from './components/shared/Loader';
+import axios from 'axios';
 
 function App() {
   const [user, setUser] = useState({ status: 'logging', data: null });
@@ -43,7 +45,8 @@ function App() {
         <Routes>
           <Route path="/" element={<MainPage user={user} />} />
           <Route path="/reg" element={<RegisterPage setUser={setUser} />} />
-          <Route
+          <Route path="/orders" element={<OrdersPage order={order} user={user} />} />
+        <Route
             path="/courier"
             element={<CourierPage orders={orders} courierId={user.data?.id} />}
           />
