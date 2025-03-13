@@ -50,7 +50,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MainPage user={user} onLogout={handleLogout} />} />
           <Route path="/reg" element={<RegisterPage setUser={setUser} />} />
-          <Route path="/orders" element={<OrdersPage order={order} user={user} />} />
+          <Route path="/orders" element={<OrdersPage order={orders} user={user} />} />
         <Route
             path="/courier"
             element={<CourierPage orders={orders} courierId={user.data?.id} user={user} onLogout={handleLogout} />} />

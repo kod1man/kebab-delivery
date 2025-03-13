@@ -1,8 +1,8 @@
 const orderRouter = require('express').Router();
-const { Order } = require('../../db/models');
+const { Order, User } = require('../../db/models');
 const { verifyAccessToken, verifyRefreshToken } = require('../middlewares/verifyTokens');
 
-// orderRouter.use(verifyRefreshToken);
+orderRouter.use(verifyRefreshToken);
 
 orderRouter.get('/info', async (req, res) => {
   try {
@@ -50,6 +50,33 @@ orderRouter.delete('/delete/:id', async (req, res) => {
   } catch (error) {
     console.error('Ошибка при удалении заказа:', error);
     res.status(500).json({ error: 'Ошибка при удалении заказа' });
+  }
+});
+
+orderRouter.put('/:orderId/purchase', async (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const { customerId } = req.body;
+
+    const order = await Order.findByPk(orderId);
+
+    if (!order) {
+      return res.status(404).json({ message: 'Заказ не найден' });
+    }
+
+    order.customerId = customerId;
+    order.isAvailable = false;
+    await order.save();
+
+    const user = await User.findByPk(customerId);
+    if (!user) {
+      return res.status(404).json({ message: 'Пользователь не найден' });
+    }
+
+    res.status(200).json({ message: 'Заказ успешно выкуплен', order });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Ошибка при обработке запроса' });
   }
 });
 
