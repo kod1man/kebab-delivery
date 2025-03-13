@@ -2,7 +2,7 @@ const orderRouter = require('express').Router();
 const { Order } = require('../../db/models');
 const { verifyAccessToken, verifyRefreshToken } = require('../middlewares/verifyTokens');
 
-// orderRouter.use(verifyRefreshToken);
+orderRouter.use(verifyRefreshToken);
 
 orderRouter.get('/info', async (req, res) => {
   try {
