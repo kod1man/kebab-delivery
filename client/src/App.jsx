@@ -1,4 +1,4 @@
-import React, { useEffect, useState }, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import MainPage from './components/pages/MainPage';
 import RegisterPage from './components/pages/RegistrationForm';
