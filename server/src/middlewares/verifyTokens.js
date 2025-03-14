@@ -9,7 +9,7 @@ const verifyAccessToken = (req, res, next) => {
 
     return next();
   } catch (error) {
-    console.log('Invalid access token');
+    console.log('Invalid access token', error);
     return res.sendStatus(403);
   }
 };
