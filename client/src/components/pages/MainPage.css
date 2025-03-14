@@ -213,7 +213,7 @@ h1 {
   width: 400px;
   opacity: 0;
   position: absolute;
-  animation: fadeIn 1s forwards;
+  animation: fadeIn 0.1s forwards;
   z-index: 1;
 }
 

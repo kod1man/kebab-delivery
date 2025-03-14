@@ -1,5 +1,5 @@
 .button-center {
-  margin-left: 25%;
+  margin-left: 35%;
 }
 
 .logout-button {
@@ -9,13 +9,13 @@
   border: none;
   border-radius: 5px;
   border-color: #0e1444;
-  font-size: 1rem;
+  font-size: 1.3rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .logout-button:hover {
-  background-color: #973c3c;
+  background-color: #ca6019;
 }
 
 .courier-add-form {

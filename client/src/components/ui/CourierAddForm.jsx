@@ -1,12 +1,14 @@
 import React from 'react';
 import Button from 'react-bootstrap/esm/Button';
 import Form from 'react-bootstrap/Form';
+import './CourierAddForm.css'
 
 export default function CourierAddForm({ setInput, input, submitHandler }) {
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
   return (
+    <div className='registration-container'>
     <Form onSubmit={submitHandler} className="registration-form">
       <h2> Форма добавления непринятого заказа</h2>
       <Form.Group className="form-group">
@@ -53,8 +55,9 @@ export default function CourierAddForm({ setInput, input, submitHandler }) {
         />
       </Form.Group>
       <Button variant="success" type="submit" className="submit-button">
-        Add
+        Добавить заказ
       </Button>
     </Form>
+    </div>
   );
 }
