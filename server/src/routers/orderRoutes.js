@@ -7,9 +7,32 @@ const upload = require('../middlewares/multer');
 
 orderRouter.use(verifyRefreshToken);
 
+// orderRouter.get('/info', async (req, res) => {
+//   try {
+//     const allOrders = await Order.findAll();
+//     res.status(200).json(allOrders);
+//   } catch (error) {
+//     console.log(error, 'Ошибка в получении заказов');
+//     res.status(500).json({ error: 'Ошибка в получении заказов' });
+//   }
+// });
+
 orderRouter.get('/info', async (req, res) => {
   try {
-    const allOrders = await Order.findAll();
+    const allOrders = await Order.findAll({
+      include: [
+        {
+          model: User,
+          as: 'courier', 
+          attributes: ['name', 'phone', 'city'], 
+        },
+        {
+          model: User,
+          as: 'customer', 
+          attributes: ['name', 'phone', 'city'], 
+        },
+      ],
+    });
     res.status(200).json(allOrders);
   } catch (error) {
     console.log(error, 'Ошибка в получении заказов');
@@ -60,6 +83,34 @@ orderRouter.delete('/delete/:id', async (req, res) => {
   }
 });
 
+// orderRouter.put('/:orderId/purchase', async (req, res) => {
+//   try {
+//     const { orderId } = req.params;
+//     const { customerId } = req.body;
+
+//     const order = await Order.findByPk(orderId);
+
+//     if (!order) {
+//       return res.status(404).json({ message: 'Заказ не найден' });
+//     }
+
+//     order.customerId = customerId;
+//     order.isAvailable = false;
+//     await order.save();
+
+//     const user = await User.findByPk(customerId);
+//     if (!user) {
+//       return res.status(404).json({ message: 'Пользователь не найден' });
+//     }
+
+//     res.status(200).json({ message: 'Заказ успешно выкуплен', order });
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: 'Ошибка при обработке запроса' });
+//   }
+// });
+
+
 orderRouter.put('/:orderId/purchase', async (req, res) => {
   try {
     const { orderId } = req.params;
@@ -71,16 +122,32 @@ orderRouter.put('/:orderId/purchase', async (req, res) => {
       return res.status(404).json({ message: 'Заказ не найден' });
     }
 
-    order.customerId = customerId;
-    order.isAvailable = false;
-    await order.save();
-
     const user = await User.findByPk(customerId);
     if (!user) {
       return res.status(404).json({ message: 'Пользователь не найден' });
     }
 
-    res.status(200).json({ message: 'Заказ успешно выкуплен', order });
+    order.customerId = customerId;
+    order.isAvailable = false;
+    await order.save();
+
+
+    const updatedOrder = await Order.findByPk(orderId, {
+      include: [
+        {
+          model: User,
+          as: 'courier',
+          attributes: ['name', 'phone', 'city'],
+        },
+        {
+          model: User,
+          as: 'customer',
+          attributes: ['name', 'phone', 'city'],
+        },
+      ],
+    });
+
+    res.status(200).json({ message: 'Заказ успешно выкуплен', order: updatedOrder });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Ошибка при обработке запроса' });
