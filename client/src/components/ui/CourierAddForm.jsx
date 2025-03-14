@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/esm/Button';
 import Form from 'react-bootstrap/Form';
+import './CourierAddForm.css'
 
 export default function CourierAddForm({ setInput, input, submitHandler }) {
   const handleChange = (e) => {
