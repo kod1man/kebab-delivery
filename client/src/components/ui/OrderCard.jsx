@@ -21,7 +21,7 @@ export default function OrderCard({ order, user, onBuy }) {
   return (
     <Col xs={6}>
       <Card>
-        <Card.Img variant="top" src={order.img} />
+        <Card.Img variant="top" src={'http://localhost:3000/img/' + order.img || ''} />
         <Card.Body>
           <Card.Title>Название:{order.title}</Card.Title>
           <Card.Text>Город: {order.city}</Card.Text>
@@ -30,9 +30,9 @@ export default function OrderCard({ order, user, onBuy }) {
             Цена со скидкой: {order.price * (1 - order.discountPrice / 100)}
           </Card.Text>
 
-          <Button variant="success" className="submit-button" onClick={handlePurchase}>
+           {user.data.role === 'customer' && <Button variant="success" className="submit-button" onClick={handlePurchase}>
             Выкупить
-          </Button>
+          </Button>}
         </Card.Body>
       </Card>
     </Col>

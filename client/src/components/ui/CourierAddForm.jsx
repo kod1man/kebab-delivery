@@ -30,14 +30,7 @@ export default function CourierAddForm({ setInput, input, submitHandler }) {
         />
       </Form.Group>
       <Form.Group className="form-group">
-        <Form.Control
-          type="text"
-          name="img"
-          placeholder="URL"
-          value={input.img}
-          onChange={handleChange}
-          className="form-input"
-        />
+        <Form.Control type="file" name="file" placeholder="URL" className="form-input" />
       </Form.Group>
       <Form.Group className="form-group">
         <Form.Control
