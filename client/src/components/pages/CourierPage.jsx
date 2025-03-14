@@ -74,6 +74,7 @@ export default function CourierPage({ orders, courierId, user }) {
 
   return (
     <>
+    <div className='reg-container'>
       <div className="button-center">
         <Button variant="danger" onClick={handleBackClick} className="logout-button">
           вернуться назад
@@ -100,6 +101,7 @@ export default function CourierPage({ orders, courierId, user }) {
           )}
         </Row>
       </Container>
+      </div >
     </>
   );
 }
