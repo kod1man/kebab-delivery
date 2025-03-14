@@ -79,9 +79,9 @@ export default function MainPage({ user, onLogout }) {
           </div>
           <div className="bars-cont">
             <div className="kebab-stack">
-              <img src="../../../public/pom.png" alt="Kebab 3" className="kebabp" />
-              <img src="../../../public/luc.png" alt="Kebab 2" className="kebabl" />
-              <img src="../../../public/sh.png" alt="Kebab 1" className="kebabs" />
+              <img src="/pom.png" alt="Kebab 3" className="kebabp" />
+              <img src="/luc.png" alt="Kebab 2" className="kebabl" />
+              <img src="/sh.png" alt="Kebab 1" className="kebabs" />
             </div>
           </div>
         </section>
