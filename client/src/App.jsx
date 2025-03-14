@@ -16,9 +16,13 @@ function App() {
 
   useEffect(() => {
     const data = async () => {
-      const response = await fetch('/api/orders/info');
-      const responseData = await response.json();
-      setOrder(responseData);
+      try {
+        const response = await fetch('/api/orders/info');
+        const responseData = await response.json();
+        setOrder(responseData);
+      } catch (error) {
+        console.log('Ошибка при загрузке данных', error);
+      }
     };
     data();
   }, []);
