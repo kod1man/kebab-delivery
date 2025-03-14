@@ -18,6 +18,15 @@ export default function CourierCard({ order, onDelete }) {
           <Card.Text>Город: {order.city}</Card.Text>
           <Card.Text>Цена: {order.price}</Card.Text>
           <Card.Text>Скидка: {order.discountPrice} %</Card.Text>
+          {order.customer ? (
+            <Card.Text>
+              Заказ куплен пользователем {order.customer.name}, свяжитесь по номеру
+              телефона: {order.customer.phone}. Покупатель находится в городе :{' '}
+              {order.customer.city}
+            </Card.Text>
+          ) : (
+            <Card.Text>Заказ еще никем не куплен</Card.Text>
+          )}
           <Button
             variant="success"
             className="submit-button"

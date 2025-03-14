@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/esm/Button';
 import axiosInstance from '../../api/axiosInstance';
 import './CourierPage.css'; // Убедитесь, что путь правильный
 
-export default function CourierPage({ orders, courierId, onLogout }) {
+export default function CourierPage({ orders, courierId, user }) {
   const [input, setInput] = useState({
     title: '',
     city: '',
@@ -25,18 +25,6 @@ export default function CourierPage({ orders, courierId, onLogout }) {
       setFilterOrders(orders.filter((el) => el.courierId === courierId));
     }
   }, [orders, courierId]);
-
-  // const submitHandler = async (event) => {
-  //   event.preventDefault();
-  //   try {
-  //     const response = await axiosInstance.post('/orders/create', input);
-  //     setFilterOrders((prev) => [...prev, response.data]);
-  //     setInput({ title: '', city: '', img: '', price: '', discountPrice: '' });
-  //   } catch (error) {
-  //     console.log(error, 'Ошибка в создании заказа');
-  //   }
-  // };
-  
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -103,7 +91,7 @@ export default function CourierPage({ orders, courierId, onLogout }) {
         <Row style={{ marginTop: '10px' }}>
           {filterOrders.length > 0 ? (
             filterOrders.map((el) => (
-              <CourierCard key={el.id} order={el} onDelete={deleteHandler} />
+              <CourierCard key={el.id} order={el} onDelete={deleteHandler} user={user} />
             ))
           ) : (
             <p className="no-orders-message">
