@@ -2,9 +2,26 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './RegistrationForm.css';
 import axiosInstance from '../../api/axiosInstance';
+import validPassword from '../utils/validPassword';
+import validEmail from '../utils/validEmail';
+import validPhone from '../utils/validPhone';
 
 export default function RegistrationForm({ setUser }) {
   const [role, setRole] = useState('customer');
+  const [input, setInput] = useState({ password: '', email: '', phone: '' });
+
+  const changePass = (event) => {
+    setInput((prev) => ({ ...prev, [event.target.name]: event.target.value }));
+  };
+
+  const changeEmail = (event) => {
+    setInput((prev) => ({ ...prev, [event.target.name]: event.target.value }));
+  };
+
+  const changePhone = (event) => {
+    setInput((prev) => ({ ...prev, [event.target.name]: event.target.value }));
+  };
+
   const navigate = useNavigate();
   const signupHandle = (e) => {
     e.preventDefault();
@@ -57,23 +74,54 @@ export default function RegistrationForm({ setUser }) {
         </div>
 
         <div className="form-group">
-          <label htmlFor="email">Почта:</label>
-          <input type="email" id="email" name="email" required />
+          <label
+            style={{ color: validEmail(input.email) ? 'green' : 'red' }}
+            htmlFor="email"
+          >
+            Почта:
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            value={input.email}
+            onChange={changeEmail}
+          />
         </div>
 
         <div className="form-group">
-          <label htmlFor="password">Пароль:</label>
-          <input type="password" id="password" name="password" required />
+          <label
+            style={{ color: validPassword(input.password) ? 'green' : 'red' }}
+            htmlFor="password"
+          >
+            Пароль:
+          </label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            required
+            value={input.password}
+            onChange={changePass}
+          />
         </div>
 
         <div className="form-group">
-          <label htmlFor="phone">Номер телефона:</label>
+          <label
+            style={{ color: validPhone(input.phone) ? 'green' : 'red' }}
+            htmlFor="phone"
+          >
+            Номер телефона:
+          </label>
           <input
             type="text"
             id="phone"
             name="phone"
             required
             placeholder="+7 (XXX) XXX-XX-XX"
+            value={input.phone}
+            onChange={changePhone}
           />
         </div>
 
